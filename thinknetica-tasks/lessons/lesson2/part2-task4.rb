@@ -4,13 +4,11 @@ letters_array = []
 
 letters_array = ("a".."z").to_a
 
-print letters_array
+puts "Letters_array: " + letters_array.to_s
+#puts #{/n}
 
-letters_hash = Hash.new(0)
-i=0
-letters_array.each do 
-  letters_hash[letters_array[i].to_sym] = i + 1 
-  i += 1
+vowels = ["a", "e", "i", "o", "u", "y"]
+
+for a in 0..vowels.size
+  letters_array.each_with_index { |value, index| puts "Vowels: #{index+1} position for #{value}" if letters_array[index] == vowels[a]}
 end
-
-print "Hash of indexing letters #{letters_hash}"

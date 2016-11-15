@@ -17,9 +17,9 @@ months = {
 
 puts "Months with 30 days"
 months.each do |name, days|
-    if months[name] == 30
-      puts name.to_s
-    end
-  end
+    
+puts name.to_s if months[name] == 30
+    
+end
 
 

@@ -6,15 +6,10 @@
 
 arr = [0,1]
 
-count = 1
-
-loop do
-
-#arr.push(arr[count]+arr[count-1])
-arr << arr[count]+arr[count-1]
-  count += 1
-  break if count > 100
+for n in 1..100
+  arr << arr[n-1]+arr[n]
 end
 
-puts #{\n}
-puts "Fibonacci sequence #{arr}"
+puts "Fibonacci sequence: " + arr.to_s
+#print arr
+#puts #{/n}
