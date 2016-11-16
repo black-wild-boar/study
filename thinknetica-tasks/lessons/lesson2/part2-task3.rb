@@ -6,10 +6,9 @@
 
 arr = [0,1]
 
-for n in 1..100
-  arr << arr[n-1]+arr[n]
+while (arr[-1] + arr[-2]) < 100 do 
+    arr << arr[-1] + arr[-2]
 end
 
-puts "Fibonacci sequence: " + arr.to_s
-#print arr
+puts "Fibonacci sequence with numbers < 100: " + arr.to_s
 #puts #{/n}
