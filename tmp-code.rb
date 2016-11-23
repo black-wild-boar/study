@@ -1,61 +1,28 @@
-#test class create
+class Machine
+  @@users = {}
 
-class Car
-#macros for setter && getter methods
-
-#method-setter
-#attr_writer :speed
-#method-getter
-#attr_reader :speed
-
-#method getter&&setter
-attr_accessor :speed
-
-attr_reader :engine_volume
-
-  def initialize (speed = 0, engine_volume)
-    @speed = speed
-    @engine_volume = engine_volume
+  def initialize(username, password)
+    @username = username
+    @password = password
+    @@users[username] = password
+    @files = {}
   end
 
-  def start_engine
-    puts "Wroom!"
+  def create(filename)
+    time = Time.now
+    @files[filename] = time
+    puts "#{filename} was created by #{@username} at #{time}."
   end
 
-  def beep
-    puts "Beep beep"
+  def Machine.get_users
+    @@users
   end
-
-  def stop
-#use method-setter
-    self.speed = 0
-  end
-
-  def go
-#use method-setter
-    self.speed = 50
-#    @speed = 50
-#invoke method beep
-  beep
-#    puts "Local speed: #{speed}, instance speed: #{@speed}"
-  end
-
-  #def current_speed
-  #  @speed
-  #end
-
-#method getter
-#  def speed
-#    @speed
-#  end
-
-# def engine_volume
-#    @engine_volume
-#  end
-
-#method setter
-#  def speed=(speed)
-#    @speed = speed
-#  end
-
 end
+
+my_machine = Machine.new("eric", 01234)
+your_machine = Machine.new("you", 56789)
+
+my_machine.create("groceries.txt")
+your_machine.create("todo.txt")
+
+puts "Users: #{Machine.get_users}"
