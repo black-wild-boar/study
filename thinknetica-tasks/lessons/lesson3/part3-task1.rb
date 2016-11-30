@@ -27,15 +27,15 @@ class Train
   def current_station
     route.stations[@current_station]
     puts "Текущая станция #{route.stations[@current_station].show_station} "
-    eee = route.stations[@current_station].show_station
-  #  puts $trains_at_stations
-    $trains_at_stations[eee.to_sym].push(@train_number)
+    station_name = route.stations[@current_station].show_station
+  
+    #$trains_at_stations[station_name.to_sym].push(@train_number)
 
 #наверное должен быть хэш {station1: [t1,t2], station2: [t3,t4],...}
   end
 
   def next_station
-    if not route.stations[@current_station+1].nil?
+    if !route.stations[@current_station+1].nil?
       #??? как вывести название станции !!! через метод-геттер описаный в классе объекта
       #puts route.at(route.stations[@current_station)
       #print @current_station
@@ -57,7 +57,7 @@ class Train
   end
 
   def show_next_station
-    route.stations[@current_station+1] if not route.stations[@current_station+1].nil?
+    route.stations[@current_station+1] unless route.stations[@current_station+1].nil?
   end
 
   def show_prev_station
@@ -98,23 +98,23 @@ end
 
 class Station
   #attr_accessor :current_station
-  $trains_at_stations = {}
+  #$trains_at_stations = {}
   #{station: [t1,t2,...]}
 
   def initialize(station)
     @station = station
-    $trains_at_stations[@station] = []
+  #  $trains_at_stations[@station] = []
 #    @@all_routes[@first_station] = []
 #    @@all_routes[@last_station] = []
   end
 
-  def self.show_stations
-    $trains_at_stations
-  end
+  #def self.show_stations
+   # $trains_at_stations
+  #end
 
   def go_train(train)
     @train = train
-    $trains_at_stations.delete(@train)
+   # $trains_at_stations.delete(@train)
   end
 
   def show_station
@@ -126,13 +126,13 @@ end
 class Route
 
   attr_reader :stations
-  @@all_routes = {}
+  #@@all_routes = {}
 
   def initialize(first_station , last_station)
     @first_station = first_station
     @last_station = last_station
     @stations = [@first_station,@last_station]
-    @@all_routes[@stations] = []
+   # @@all_routes[@stations] = []
   end
 
 
@@ -146,9 +146,9 @@ class Route
     @stations.delete(@station)
   end
 
-  def self.show_routes
-    @@all_routes
-  end
+  #def self.show_routes
+  #  @@all_routes
+  #end
 
 end
 
