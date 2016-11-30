@@ -1,163 +1,108 @@
-#Management of railway station
-
-#class Route
-#  attr_reader :stations
-#end
-
-class Train
-
-  attr_accessor :route
-  @@trains = {}
-
-#возможная схема
-#{number: [[train_type, carriage_count, current_stations],{route: stations}]}
-
-  def initialize(train_number, train_type, carriage_count)
-    @train_number = train_number
-    @train_type = train_type
-    @carriage_count = carriage_count
-    @current_station = 0
-    @@trains[@train_number] = [@train_type, carriage_count] 
-    #@@trains[@train_number] = [@train_type, @carriage_count, @current_station, route] 
-#???  как получить значение - имя создаваемого объекта класса !!! через метод-геттер описаный в классе объекта
-#тогда будет ключ = имя, значение = массив
-    @speed = 0
-  end
-
-  def current_station
-    route.stations[@current_station]
-    puts "Текущая станция #{route.stations[@current_station].show_station} "
-    station_name = route.stations[@current_station].show_station
-  
-    #$trains_at_stations[station_name.to_sym].push(@train_number)
-
-#наверное должен быть хэш {station1: [t1,t2], station2: [t3,t4],...}
-  end
-
-  def next_station
-    if !route.stations[@current_station+1].nil?
-      #??? как вывести название станции !!! через метод-геттер описаный в классе объекта
-      #puts route.at(route.stations[@current_station)
-      #print @current_station
-      @current_station += 1
-    else
-      puts "It's last station" #{@stations}"
-      puts @current_station
-    end
-  end
-
-  def prev_station
-    if @current_station >= 1 
-#      puts @current_station
-      @current_station -= 1
-    else
-      puts "It's first station"
- #     puts @current_station
-    end
-  end
-
-  def show_next_station
-    route.stations[@current_station+1] unless route.stations[@current_station+1].nil?
-  end
-
-  def show_prev_station
-    route.stations[@current_station-1] if @current_station >= 1
-  end
-
-  def self.show_trains
-    @@trains
-  end
-
-  def speed_up(count)
-    @speed += count if count > 0
-    puts "Текущая скорость: #{@speed}"
-  end
-
-  def speed_down(count)
-    @speed -= count if @speed > 0 && count > 0
-    puts "Текущая скорость: #{@speed}"
-  end
-
-  def current_speed
-    puts "Текущая скорость: #{@speed}"
-  end
-
-  def carriage_count_up(count)
-    @carriage_count += count if @speed == 0 && count > 0
-  end
-
-  def carriage_count_down(count)
-    @carriage_count -= count if @speed == 0 && (@carriage_count-count)<0 && count > 0
-  end
-
-  def current_carriage_count
-    @carriage_count
-  end
-
-end
-
 class Station
-  #attr_accessor :current_station
-  #$trains_at_stations = {}
-  #{station: [t1,t2,...]}
-
+  attr_accessor :station_name, :trains
+  
   def initialize(station)
     @station = station
-  #  $trains_at_stations[@station] = []
-#    @@all_routes[@first_station] = []
-#    @@all_routes[@last_station] = []
+    @trains = []
   end
 
-  #def self.show_stations
-   # $trains_at_stations
-  #end
-
-  def go_train(train)
-    @train = train
-   # $trains_at_stations.delete(@train)
+  def add_train(train_number)
+    @trains.push(train_number) unless @trains.include?(train_number)
   end
 
+  def show_all_trains
+    @trains.each do |train|
+    puts @trains[train]
+    end    
+  end
+
+  def del_train(train_number)
+    @trains.delete(train_number)
+  end
+
+#?
+  def trains_by_type(type)
+    @trains.each do |train|
+      puts @trains[train] if @trains.include?(type)
+    end    
+  end
+  
   def show_station
     @station
-  end
+  end    
 
 end
 
 class Route
+  attr_accessor :stations_list
 
-  attr_reader :stations
-  #@@all_routes = {}
-
-  def initialize(first_station , last_station)
+  def initialize(first_station, last_station)
     @first_station = first_station
     @last_station = last_station
-    @stations = [@first_station,@last_station]
-   # @@all_routes[@stations] = []
+    @stations_list = [@first_station, @last_station]
   end
 
-
   def add_station(station)
-    @station = station
-    @stations.insert(@stations.size-1,@station)
+    @stations_list.insert(@stations_list.size-1,station) unless @stations_list.include?(station)
   end
 
   def del_station(station)
-    @station = station
-    @stations.delete(@station)
+    @stations_list.delete(station)
   end
 
-  #def self.show_routes
-  #  @@all_routes
-  #end
+  def show_route
+    @stations_list.each do |station|
+      puts station.show_station 
+    end
+  end
 
 end
 
-#s1 = Station.new("nsk")
-#s2 = Station.new("msk")
-#s3 = Station.new("spb")
+class Train
+  attr_accessor :route, :type
 
-#r1 = Route.new(s1,s2)
-#r2 = Route.new(s2,s3)
+  def initialize(train, type, carriages)
+    @train = train
+    @type = type
+    @carriages = carriages
+    @speed = 0
+    @current_station = 0
+  end
 
-#t1 = Train.new(101,1,5)
-#t2 = Train.new(201,2,7)
+  def speed_change(count)
+    @speed = count
+  end
+
+  def current_speed
+    @speed
+  end
+
+  def speed_stop
+    @speed = 0
+  end 
+
+  def carriages_count
+    @carriages
+  end
+
+#+1 -1
+  def carriages_change(count)
+    @carriages += count if (@carriages + count > 0) && @speed == 0
+  end
+
+  def current_station
+    route.stations_list[@current_station]
+    route.stations_list[@current_station].add_train(@train)
+  end
+
+  def station_next
+    route.stations_list[@current_station+1]
+    puts route.stations_list[@current_station+1].show_station
+  end
+
+  def station_prev
+    route.stations_list[@current_station-1]
+    puts route.stations_list[@current_station-1].show_station
+  end
+
+end
