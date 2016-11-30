@@ -4,7 +4,8 @@
 
 class Train
 
-  attr_accessor :route
+  attr_accessor :route, :station
+
   @@trains = {}
 
 #{number: [[train_type, carriage_count, current_stations],{route: stations}]}
@@ -24,9 +25,10 @@ class Train
   def current_station
     route.stations[@current_station]
     puts "Текущая станция #{route.stations[@current_station].show_station} "
-    eee = route.stations[@current_station].show_station
+    #eee = route.stations[@current_station].show_station
   #  puts $trains_at_stations
-    $trains_at_stations[eee.to_sym].push(@train_number)
+    #$trains_at_stations[eee.to_sym].push(@train_number)
+    station[@current_station]
 
 #наверное должен быть хэш {station1: [t1,t2], station2: [t3,t4],...}
   end
@@ -54,7 +56,7 @@ class Train
   end
 
   def show_next_station
-    route.stations[@current_station+1] if not route.stations[@current_station+1].nil?
+    route.stations[@current_station+1] unless route.stations[@current_station+1].nil?
   end
 
   def show_prev_station
@@ -94,24 +96,25 @@ class Train
 end
 
 class Station
-  #attr_accessor :current_station
-  $trains_at_stations = {}
+  #attr_accessor :station_object
+  #$trains_at_stations = {}
+  
   #{station: [t1,t2,...]}
 
   def initialize(station)
     @station = station
-    $trains_at_stations[@station] = []
-#    @@all_routes[@first_station] = []
-#    @@all_routes[@last_station] = []
+   # @station_object = station
+
   end
 
   def self.show_stations
-    $trains_at_stations
+    #$trains_at_stations
+    @station
   end
 
   def go_train(train)
     @train = train
-    $trains_at_stations.delete(@train)
+    #$trains_at_stations.delete(@train)
   end
 
   def show_station
@@ -123,13 +126,11 @@ end
 class Route
 
   attr_reader :stations
-  @@all_routes = {}
 
   def initialize(first_station , last_station)
     @first_station = first_station
     @last_station = last_station
     @stations = [@first_station,@last_station]
-    @@all_routes[@stations] = []
   end
 
 
@@ -141,10 +142,6 @@ class Route
   def del_station(station)
     @station = station
     @stations.delete(@station)
-  end
-
-  def self.show_routes
-    @@all_routes
   end
 
 end
