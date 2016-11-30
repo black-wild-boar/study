@@ -23,8 +23,12 @@ class Train
 
   def current_station
     route.stations[@current_station]
-    $trains_at_stations[route.stations[@current_station]] = @train_number
-#должен быть хэш {station1: [t1,t2], station2: [t3,t4],...}
+    puts "Текущая станция #{route.stations[@current_station].show_station} "
+    eee = route.stations[@current_station].show_station
+  #  puts $trains_at_stations
+    $trains_at_stations[eee.to_sym].push(@train_number)
+
+#наверное должен быть хэш {station1: [t1,t2], station2: [t3,t4],...}
   end
 
   def next_station
@@ -57,7 +61,7 @@ class Train
     route.stations[@current_station-1] if @current_station >= 1
   end
 
-  def self.all_trains
+  def self.show_trains
     @@trains
   end
 
@@ -92,41 +96,65 @@ end
 class Station
   #attr_accessor :current_station
   $trains_at_stations = {}
+  #{station: [t1,t2,...]}
 
   def initialize(station)
     @station = station
     $trains_at_stations[@station] = []
+#    @@all_routes[@first_station] = []
+#    @@all_routes[@last_station] = []
   end
 
   def self.show_stations
     $trains_at_stations
   end
+
+  def go_train(train)
+    @train = train
+    $trains_at_stations.delete(@train)
+  end
+
+  def show_station
+    @station
+  end
+
 end
 
 class Route
 
   attr_reader :stations
-  @@all_routes = []
+  @@all_routes = {}
 
-  def initialize(fs , ls)
-    @fs = fs
-    @ls = ls
-    @stations = [@fs,@ls]
-    @@all_routes.push(@stations)
+  def initialize(first_station , last_station)
+    @first_station = first_station
+    @last_station = last_station
+    @stations = [@first_station,@last_station]
+    @@all_routes[@stations] = []
   end
 
-  def add_station(st)
-    @st = st
-    @stations.insert(@stations.size-1,@st)
+
+  def add_station(station)
+    @station = station
+    @stations.insert(@stations.size-1,@station)
   end
 
-  def del_station(st)
-    @st = st
-    @stations.delete(@st)
+  def del_station(station)
+    @station = station
+    @stations.delete(@station)
   end
 
-  def self.all_routes
+  def self.show_routes
     @@all_routes
   end
 
 end
+
+#s1 = Station.new("nsk")
+#s2 = Station.new("msk")
+#s3 = Station.new("spb")
+
+#r1 = Route.new(s1,s2)
+#r2 = Route.new(s2,s3)
+
+#t1 = Train.new(101,1,5)
+#t2 = Train.new(201,2,7)
