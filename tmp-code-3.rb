@@ -8,7 +8,7 @@ class Station
 
 #а передаваться в массив поездов конкретной станции нужно объекты класса Train а не Fixnum поездов
   def add_train(train_number)
-    @trains.push(train_number) unless @trains.include?(train_number)
+    @trains << train_number unless @trains.include?(train_number)
   end
 
 #т.к. attr_accessor => s1.trains
@@ -101,9 +101,18 @@ class Train
   end
 
 #+1 -1. Сделал +- любое количество, вместо двух отдельных методов -+1
-  def carriages_change(count)
-    @carriages += count if (@carriages + count > 0) && @speed == 0
+#  def carriages_change(count)
+#    @carriages += count if (@carriages + count > 0) && @speed == 0
+#  end
+
+  def carriages_plus(count)
+    @carriages += count if @speed == 0
   end
+
+  def carriages_minus(count)
+    @carriages -= count if (@carriages + count > 0) && @speed == 0
+  end
+
 
   def current_station
 #сначала добавление объекта класса Train в массив trains класса Station
