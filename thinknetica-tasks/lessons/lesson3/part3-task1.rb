@@ -6,6 +6,7 @@ class Station
     @trains = []
   end
 
+#а передаваться в массив поездов конкретной станции нужно объекты класса Train а не Fixnum поездов
   def add_train(train_number)
     @trains.push(train_number) unless @trains.include?(train_number)
   end
@@ -21,11 +22,18 @@ class Station
     @trains.delete(train_number)
   end
 
-#?
+#сюда передаются объекты Trains
   def trains_by_type(type)
+#    puts @trains.class
     @trains.each do |train|
-      puts @trains[train] if @trains.include?(type)
+#      puts "train #{train}" 
+#      puts type
+#      puts train.type
+#      puts train.type == type
+#      puts "train #{train} типа #{train.type}" 
+      puts "type #{type} train #{train.train}" if train.type == type
     end    
+    
   end
 
 #т.к. attr_accessor => s1.station_name  
@@ -92,17 +100,18 @@ class Train
     @carriages
   end
 
-#+1 -1. Сделал +- любое количество, вместо -+1
+#+1 -1. Сделал +- любое количество, вместо двух отдельных методов -+1
   def carriages_change(count)
     @carriages += count if (@carriages + count > 0) && @speed == 0
   end
 
   def current_station
+#сначала добавление объекта класса Train в массив trains класса Station
+    route.stations_list[@current_station].add_train(self)
+#добавление объекта класса Route через метод-сеттер атрибута route класса Train   
     route.stations_list[@current_station]
-    route.stations_list[@current_station].add_train(@train)
-    puts route.stations_list[@current_station].station_name
-    puts route.stations_list[@current_station].add_train(@train)
-  end
+    p "train #{@train}"
+    end
 
   def station_next
     unless route.stations_list[@current_station+1].nil?    
@@ -129,3 +138,27 @@ class Train
   end
 
 end
+
+#s1 = Station.new("lg1")
+#s2 = Station.new("lg2")
+#s3 = Station.new("lg3")
+
+#r1 = Route.new(s1,s2)
+#r1.add_station(s3)
+
+#r2 = Route.new(s3,s1)
+
+#t1 = Train.new(101,2,7)
+#t2 = Train.new(201,1,8)
+#t3 = Train.new(301,2,9)
+
+#t1.route = r1
+#t1.current_station
+
+#t2.route = r2
+#t2.current_station
+
+#t3.route = r1
+#t3.current_station
+
+#s1.trains_by_type(2)
