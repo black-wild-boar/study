@@ -7,6 +7,76 @@ require_relative 'passenger_carriage'
 require_relative 'station'
 require_relative 'route'
 
+STOP_WORD = "stop"
+
+#def stop_word?(stop_word)
+#  break if stop_word == STOP_WORD
+#end
+key=""
+
+until key "" STOP_WORD
+
+
+  puts "Вас приветствует система управления железнодорожной станцией!"
+
+  puts "Добавить пассажирский вагон. Нажмите 1."
+  puts "Добавить грузовой вагон. Нажмите 2."
+  puts "Добавить пассажирский поезд. Нажмите 3."
+  puts "Добавить грузовой поезд. Нажмите 4."
+  puts "Добавить станцию. Нажмите 5."
+  puts "Добавить маршрут. Нажмите 6."
+
+  puts "Удалить пассажирский поезд. Нажмите 7."
+  puts "Удалить грузовой вагон. Нажмите 8."
+
+  puts "Показать список станций поезда. Нажмите 9."
+  puts "Показать поездов на станции. Нажмите 10."
+
+  puts "Для завершения наберите слово ""Стоп"" "
+
+case key
+  #case key
+    when key = 1
+      puts "Добавлен пассажирский вагон."
+      carriage = gets.chomp
+    when key = 2
+      carriage = gets.chomp
+      puts "Добавлен грузовой вагон"
+    when key = 3
+      passenger_train = gets.chomp
+      puts "Добавлен пассажирский поезд"
+    when key = 4
+      cargo_train = gets.chomp
+      puts "Добавлен грузовой поезд"
+    when key = 5
+      add_station = gets.chomp
+      puts "Добавлена станция."
+    when key = 6
+      add_route = gets.chomp
+      puts "Добавлен маршрут."
+    when key = 7
+      del_passenger_train = gets.chomp
+      puts "Удален пассажирский поезд."
+    when key = 8
+      del_cargo_train = gets.chomp
+      puts "Удален грузовой вагон."
+    when key = 9
+      stations_list = gets.chomp
+      puts "Список станций поезда."
+    when key = 10
+      trains_list = gets.chomp
+      puts "Поезда на станции."
+    when key = STOP_WORD
+      exit;
+      #break()
+    else
+      puts "Введен некорректный выбор"
+    end
+  end
+
+
+#  break if carriage = STOP_WORD
+
 
 #s1 = Station.new("lg1")
 #s2 = Station.new("lg2")

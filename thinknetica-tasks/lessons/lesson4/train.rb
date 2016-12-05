@@ -5,7 +5,6 @@ class Train
 
   def initialize(train, train_type, carriages)
     @train = train
-#    @train_type = 0 # 1 || 2
     @train_type = train_type
     @carriages = [carriages]
     @speed = 0
@@ -13,50 +12,12 @@ class Train
   end
 
   def add_carriage_to_train(carriage_number)
-   # puts "@carriages.size #{@carriages.size}"
-  #  puts @carriages[0].get_train_type 
- #   puts @train_type
-#@carriages << carriage_number if @carriages[0].get_train_type == @train_type
-  puts @carriages[0].get_train_type
-  puts @train_type
-#error
-  puts @carriages[0].class
-  puts carriage_number.class
-
-#if @carriages.class = carriage_number.class
-#if @carriages[0].get_train_type == @train_type
-#  puts @carriages[0].get_train_type
-#  puts @train_type
-  @carriages << carriage_number if @carriages[0].class == carriage_number.class
-#  end
-
-#  def equal_carriage_type?
-#    carriage.get_train_type == @train_type
-#  end
-
-#def init_type
-#  {}
-#end
-#def init_carriage
-#  []
-end
+    @carriages << carriage_number if @carriages[0].class == carriage_number.class
+  end
 
   def speed_stop
     @speed = 0    
   end 
-
-  def carriages_count
-    @carriages.size
-  end
-
-  def carriages_plus(count)
-    @carriages << carriages
-  end
-
-  def carriages_minus(count)
-    
-    #@carriages -= count.abs if (@carriages - count.abs >= 0) && @speed == 0
-  end
 
   def current_station
 #сначала добавление объекта класса Train в массив trains класса Station
