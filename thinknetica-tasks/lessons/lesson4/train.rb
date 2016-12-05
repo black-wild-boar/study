@@ -20,11 +20,15 @@ class Train
   puts @carriages[0].get_train_type
   puts @train_type
 #error
-if @carriages[0].get_train_type == @train_type
-  puts @carriages[0].get_train_type
-  puts @train_type
-  @carriages << carriage_number
-  end
+  puts @carriages[0].class
+  puts carriage_number.class
+
+#if @carriages.class = carriage_number.class
+#if @carriages[0].get_train_type == @train_type
+#  puts @carriages[0].get_train_type
+#  puts @train_type
+  @carriages << carriage_number if @carriages[0].class == carriage_number.class
+#  end
 
 #  def equal_carriage_type?
 #    carriage.get_train_type == @train_type
