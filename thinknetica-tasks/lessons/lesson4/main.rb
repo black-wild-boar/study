@@ -7,14 +7,26 @@ require_relative 'passenger_carriage'
 require_relative 'station'
 require_relative 'route'
 
+class Railway
+
 STOP_WORD = "stop"
 
 #def stop_word?(stop_word)
 #  break if stop_word == STOP_WORD
 #end
+
+def add_passenger_carriage
+  until 0
+    puts "Введите номер вагона"
+    carriage_number = gets.chomp
+    
+  end
+
+end
+
 key=""
 
-until key "" STOP_WORD
+until key == STOP_WORD
 
 
   puts "Вас приветствует система управления железнодорожной станцией!"
@@ -34,45 +46,78 @@ until key "" STOP_WORD
 
   puts "Для завершения наберите слово ""Стоп"" "
 
-case key
-  #case key
-    when key = 1
-      puts "Добавлен пассажирский вагон."
-      carriage = gets.chomp
-    when key = 2
-      carriage = gets.chomp
+key = gets.chomp
+break if key == STOP_WORD
+cargomass = []
+
+#1. станция
+#2. маршрут
+#3. поезд
+#4. вагон
+#
+puts key
+case 
+    when 1
+      
+      #puts "1 #{key}"
+    puts "Введите номер вагона"
+    carriage_number = gets.chomp
+    #puts @carriage_number
+    #CargoCarriage.new(carriage_number)
+    #@carriages[0] << CargoCarriage.new(carriage_number)
+    #puts @carriages[0]
+    #    puts @carriages[0].carriages_type
+
+      #add_passenger_carriage
+      #carriage_number
+      #CargoCarriage.new(key)
+      #puts "Добавлен пассажирский вагон № #{show_carriage}."
+#      carriage = gets.chomp
+    when 2
+#      carriage = gets.chomp
       puts "Добавлен грузовой вагон"
-    when key = 3
-      passenger_train = gets.chomp
-      puts "Добавлен пассажирский поезд"
+    when 3
+        return key
+      #puts "2 #{key}"
+ #     passenger_train = gets.chomp
+      puts "Введите номер поезда"
+      train_number = gets.chomp
+      puts "Введите тип поезда 1 - пассажирский, 2 - грузовой"
+      train_type = gets.chomp
+      puts "Введите количество вагонов"
+      train_type = gets.chomp
+      PassengerTrain.new(train_number, train_type, carriages)
+      puts "Добавлен пассажирский поезд #{PassengerTrain.new(train_number, train_type, carriages)}"
     when key = 4
-      cargo_train = gets.chomp
+ #     cargo_train = gets.chomp
       puts "Добавлен грузовой поезд"
     when key = 5
-      add_station = gets.chomp
+ #     add_station = gets.chomp
       puts "Добавлена станция."
     when key = 6
-      add_route = gets.chomp
+ #     add_route = gets.chomp
       puts "Добавлен маршрут."
     when key = 7
-      del_passenger_train = gets.chomp
+ #     del_passenger_train = gets.chomp
       puts "Удален пассажирский поезд."
     when key = 8
-      del_cargo_train = gets.chomp
+ #     del_cargo_train = gets.chomp
       puts "Удален грузовой вагон."
     when key = 9
-      stations_list = gets.chomp
+  #    stations_list = gets.chomp
       puts "Список станций поезда."
     when key = 10
-      trains_list = gets.chomp
+  #    trains_list = gets.chomp
       puts "Поезда на станции."
-    when key = STOP_WORD
-      exit;
-      #break()
+   # when 0
+    #  STOP_WORD
     else
       puts "Введен некорректный выбор"
+      #key = STOP_WORD
     end
   end
+
+end
 
 
 #  break if carriage = STOP_WORD
@@ -109,14 +154,18 @@ case key
 #s - station
 #
 #
-c_pass1 = PassengerCarriage.new(55)
-c_pass2 = PassengerCarriage.new(56)
 
-pass_t1 = PassengerTrain.new(101,1,c_pass1)
-puts pass_t1
-puts c_pass1
-puts c_pass2
-puts pass_t1
+
+#c_pass1 = PassengerCarriage.new(55)
+#c_pass2 = PassengerCarriage.new(56)
+
+#pass_t1 = PassengerTrain.new(101,1,c_pass1)
+#puts pass_t1
+#puts c_pass1
+#puts c_pass2
+#puts pass_t1
+
+
 #pass_t1.add_carriage_to_train(c_pass2)
 #puts pass_t1
 
