@@ -9,7 +9,17 @@ require_relative 'route'
 
 class Railway
 
-STOP_WORD = "stop"
+attr_accessor :all_trains
+attr_accessor :all_stations
+attr_accessor :all_routes
+
+all_trains={}
+all_stations={}
+all_routes={}
+
+STOP_KEY = 0
+PASSENGER_TRAIN_TYPE = 1
+CARGO_TRAIN_TYPE = 2
 
 #def stop_word?(stop_word)
 #  break if stop_word == STOP_WORD
@@ -23,11 +33,8 @@ def add_passenger_carriage
   end
 
 end
-
-key=""
-
-until key == STOP_WORD
-
+key = ""
+until key == STOP_KEY
 
   puts "Вас приветствует система управления железнодорожной станцией!"
 
@@ -44,22 +51,23 @@ until key == STOP_WORD
   puts "Показать список станций поезда. Нажмите 9."
   puts "Показать поездов на станции. Нажмите 10."
 
-  puts "Для завершения наберите слово ""Стоп"" "
+  puts "Для завершения нажмите 0"
 
-key = gets.chomp
-break if key == STOP_WORD
-cargomass = []
+key = gets.chomp.to_i
+break if key == STOP_KEY
+#cargomass = []
 
 #1. станция
 #2. маршрут
 #3. поезд
 #4. вагон
 #
-puts key
-case 
+puts key.class
+case key.to_i
     when 1
-      
-      #puts "1 #{key}"
+    puts "Перечень поездов"
+    all_trains.each_with_index { |value, index| puts value[index]}
+    puts all_trains
     puts "Введите номер вагона"
     carriage_number = gets.chomp
     #puts @carriage_number
@@ -76,27 +84,47 @@ case
     when 2
 #      carriage = gets.chomp
       puts "Добавлен грузовой вагон"
+#*3
     when 3
-        return key
-      #puts "2 #{key}"
- #     passenger_train = gets.chomp
       puts "Введите номер поезда"
-      train_number = gets.chomp
-      puts "Введите тип поезда 1 - пассажирский, 2 - грузовой"
-      train_type = gets.chomp
+      train = gets.chomp
       puts "Введите количество вагонов"
-      train_type = gets.chomp
-      PassengerTrain.new(train_number, train_type, carriages)
-      puts "Добавлен пассажирский поезд #{PassengerTrain.new(train_number, train_type, carriages)}"
+      carriages = gets.chomp
+      all_trains[train] = PassengerTrain.new(train, PASSENGER_TRAIN_TYPE, carriages)
+      puts "Добавлен пассажирский поезд #{all_trains[train]}"
+      puts all_trains
+#*4
     when key = 4
- #     cargo_train = gets.chomp
-      puts "Добавлен грузовой поезд"
+      puts "Введите номер поезда"
+      train = gets.chomp
+      puts "Введите количество вагонов"
+      carriages = gets.chomp
+      all_trains[train] = PassengerTrain.new(train, CARGO_TRAIN_TYPE, carriages)
+      puts "Добавлен грузовой поезд #{all_trains[train]}"
+      puts all_trains
+#*1
     when key = 5
- #     add_station = gets.chomp
-      puts "Добавлена станция."
+      puts "Введите название станции"
+      station_name = gets.chomp
+      all_stations[station_name] = Station.new(station_name)
+      puts "Добавлена станция #{@station_name}."
+      puts "Перечень станций #{all_stations}"
+#*2
     when key = 6
- #     add_route = gets.chomp
-      puts "Добавлен маршрут."
+      puts "Введите имя маршрута"
+      route = gets.chomp
+      puts "Полный перечень станций"
+      puts all_stations
+      all_stations.each_with_index { |value, index| puts value}#[index]}
+      puts "Введите начальную станцию маршрута"
+      first_station = gets.chomp
+      puts "Введите конечную станцию маршрута"
+      last_station = gets.chomp
+      all_routes[route] = Route.new(all_stations[first_station], all_stations[last_station])
+ 
+      puts "Добавлен маршрут #{route}."
+      puts "Добавлен маршрут #{all_routes[route]}."
+      puts all_routes
     when key = 7
  #     del_passenger_train = gets.chomp
       puts "Удален пассажирский поезд."
