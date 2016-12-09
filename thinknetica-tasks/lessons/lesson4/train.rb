@@ -12,7 +12,8 @@ class Train
     #@carriages = [carriages]
     @carriages = []
     @speed = 0
-    @current_station = 0
+    #@current_station = 0
+    @current_station = {}
   end
 
   def initial_train_type
