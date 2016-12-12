@@ -38,7 +38,8 @@ class Train
   #end
 
   def add_carriage_to_train(carriage_number)
-    @carriages << carriage_number #if @carriages[0].class == carriage_number.class
+    puts @speed.zero?
+    @carriages << carriage_number if self.class == train_type && @speed.zero?
   end
 
   def speed_stop
