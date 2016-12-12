@@ -6,9 +6,11 @@ class Train
   attr_accessor :carriages
   attr_accessor :current_station
 
-  def initialize(train_id, carriages)
+
+
+  def initialize(train_id)#, train_type)#, carriages)
     @train_id = train_id
-    @train_type = initial_train_type
+    @train_type = self.class#initial_train_type#train_type#initial_train_type
     #@carriages = [carriages]
     @carriages = []
     @speed = 0
@@ -16,9 +18,24 @@ class Train
     @current_station = {}
   end
 
-  def initial_train_type
-    0
-  end
+  #def self.initial2
+  #      @train_type 
+#    case class.self
+#      when "Train"
+#        @train_type = Train0
+#        puts "Train #{Object.class}"
+#      when "PassengerTrain"
+#        @train_type = PassengerTrain1
+#        puts "PassengerTrain #{Object.class}"
+#      when "CargoTrain"
+#        @train_type = CargoTrain2
+#        puts "CargoTrain #{Object.class}"
+#    end
+  #end
+
+  #def initial_train_type
+  #  0
+  #end
 
   def add_carriage_to_train(carriage_number)
     @carriages << carriage_number #if @carriages[0].class == carriage_number.class
@@ -67,12 +84,12 @@ class Train
   end
 
 
-private
+#private
 #attr_writer :train_type
 #т.к. 0 только для поездов неопределенных классов
-  def initial_train_type
-    0
-  end
+#  def initial_train_type
+#    0
+#  end
 #
 
 protected

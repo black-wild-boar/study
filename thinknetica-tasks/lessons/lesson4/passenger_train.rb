@@ -3,10 +3,18 @@ class PassengerTrain < Train
   #  super
   #  @train_type = initial_train_type
   #end
+#PASSENGER_TRAIN_TYPE = 1
 
-  private 
-  def initial_train_type
-    1
-  end
+  #private 
+  #def initial_train_type
+  #  self.class
+    #PASSENGER_TRAIN_TYPE
+  #end
+
+#def initialize(train_id)
+#  super
+#end
+
+
 end
 

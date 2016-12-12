@@ -4,16 +4,16 @@ class CarriageType
   
   def initialize(carriage_number)
     @carriage_number = carriage_number
-    @carriages_type = init_carriage
+    @carriages_type = self.class#init_carriage
   end
 
   def get_train_type
     @carriages_type
   end
 
-  def init_carriage
-    0
-  end
+  #def init_carriage
+  #  0
+  #end
 
 end
 
