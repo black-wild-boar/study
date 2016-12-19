@@ -1,9 +1,15 @@
 class Station
   attr_accessor :station_name, :trains
-  
+  @@stations_list = []
+
   def initialize(station)
     @station_name = station
     @trains = []
+    @@stations_list << station
+  end
+
+  def self.all
+    @@stations_list
   end
 
 #а передаваться в массив поездов конкретной станции нужно объекты класса Train а не Fixnum поездов

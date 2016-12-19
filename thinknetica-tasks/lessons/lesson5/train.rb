@@ -1,4 +1,7 @@
+require_relative 'modules/company.rb'
+
 class Train
+  include Manufacturer
   attr_accessor :route
   attr_reader :train_id
   attr_accessor :train_type
@@ -6,7 +9,7 @@ class Train
   attr_accessor :carriages
   attr_accessor :current_station
 
-
+  @@trains_list = {}
 
   def initialize(train_id)#, train_type)#, carriages)
     @train_id = train_id
@@ -16,6 +19,15 @@ class Train
     @speed = 0
     #@current_station = 0
     @current_station = {}
+    @@trains_list[train_id] = self
+  end
+
+  def self.find(train_id)
+    if @@trains_list.keys.include?(train_id)
+      puts "Current #{train_id} train is #{@@trains_list[train_id]}"
+    else
+      puts "No #{train_id} train"
+    end
   end
 
   #def self.initial2

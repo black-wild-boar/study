@@ -1,4 +1,7 @@
+require_relative 'modules/company.rb'
+
 class CarriageType
+  include Manufacturer
   attr_accessor :carriage_number
   attr_accessor :carriages_type
   
