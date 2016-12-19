@@ -1,3 +1,6 @@
+CamelCase (capitalized with no space)
+snake_case (lowercase with no spaces)
+
 методы класса (напр. new) car.new , user.find(5), user.where(e-mail: 'gaf@mail.ru')
 !!!методы класса объявляются двумя способами:
 1. self.<method_name>
@@ -152,3 +155,79 @@ Object.class #=> Class
 
 BasicObject.class #=> Class
 BasicObject.superclass #=> nil
+
+=====
+http://www.eriktrautman.com/posts/ruby-explained-classes
+--
+def heal
+  self.health = [self.health + 2, MAX_HEALTH].min
+end
+--
+2.times { super }
+--
+def initialize(name, health, age, strength, weapon)
+        super(name, health, age, strength)
+        @weapon = weapon
+end
+===
+<ClassName>.instance_variables
+<ClassName>.class_variables
+--
+class Polygon
+  class << self; attr_accessor :sides end
+  @sides = 8
+end
+puts Polygon.sides # => 8
+
+--
+https://www.codecademy.com/courses/ruby-beginner-en-zfe3o/1/1
+
+!!!вызов метода/константы из нэймспейса
+Math::PI
+
+!!!для подключения модуля можно использовать
+require '<module_name>'
+--
+require 'date'
+
+puts Date.today
+--
+
+??? перечень всех модулей (Math, Date,....)
+
+!!!для подключения модуля(в класс) можно использовать
+include <module_name>
+
+!!! rand(10) #=> рандомное число до 10ти
+
+include - подключает модуль на уровне объекта класса
+extend - подключает модуль на уровне класса
+
+!!!--
+puts "It's #{Time.new.hour > 12 ? Time.new.hour - 12 : Time.new.hour}:#{Time.new.min} #{Time.new.hour > 12 ? 'PM' : 'AM'} (GMT)."
+--
+
+настаивают на явном указании типа метода (public/protected/private)
+
+===
+https://launchschool.com/books/oo_ruby/read/classes_and_objects_part2
+
+class GoodDog
+  DOG_YEARS = 7
+
+  attr_accessor :name, :age
+
+  def initialize(n, a)
+    self.name = n
+    self.age  = a * DOG_YEARS
+  end
+end
+sparky = GoodDog.new("Sparky", 4)
+puts sparky.age             # => 28
+--
+
+!!! можно переопределять стандартные методы to_s и т.д.
+??? зачем(примеры)
+
+!!! p <object> == puts <object>.inspect
+
