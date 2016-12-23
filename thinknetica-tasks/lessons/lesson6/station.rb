@@ -9,6 +9,18 @@ class Station
     validation!
   end
 
+  def validation!
+    raise "Наименование станции не может быть менее 2х символов!" if station_name.to_s.length < 2
+    true
+  end
+
+  def valid?
+    validation!
+  rescue
+    false
+  end
+
+
   def self.all
     @@stations_list
   end

@@ -1,9 +1,9 @@
 require_relative 'modules/company.rb'
-require_relative 'modules/validation.rb'
+# require_relative 'modules/validation.rb'
 
 class Train
   include Manufacturer
-  include Validation
+  # include Validation
   attr_accessor :route
   attr_reader :train_id
   attr_accessor :train_type
@@ -11,18 +11,30 @@ class Train
   attr_accessor :carriages
   attr_accessor :current_station
 
+  TRAIN_NUMBER_FORMAT = /^.{3}[-]*.{2}$/
+
   @@trains_list = {}
 
-  def initialize(train_id)#, train_type)#, carriages)
+  def initialize(train_id)
     @train_id = train_id
-    @train_type = self.class#initial_train_type#train_type#initial_train_type
-    #@carriages = [carriages]
+    @train_type = self.class
     @carriages = []
     @speed = 0
-    #@current_station = 0
     @current_station = {}
     @@trains_list[train_id] = self
     validation!
+  end
+
+  def validation!
+    raise "0Некорректный формат номера поезда!" if train_id !~ TRAIN_NUMBER_FORMAT
+    raise "Скорость должна быть положительным числом!" if speed.class != Fixnum
+    true
+  end
+
+  def valid?
+    validation!
+  rescue
+    false
   end
 
   def self.find(train_id)
@@ -33,27 +45,8 @@ class Train
     end
   end
 
-  #def self.initial2
-  #      @train_type 
-#    case class.self
-#      when "Train"
-#        @train_type = Train0
-#        puts "Train #{Object.class}"
-#      when "PassengerTrain"
-#        @train_type = PassengerTrain1
-#        puts "PassengerTrain #{Object.class}"
-#      when "CargoTrain"
-#        @train_type = CargoTrain2
-#        puts "CargoTrain #{Object.class}"
-#    end
-  #end
-
-  #def initial_train_type
-  #  0
-  #end
-
   def add_carriage_to_train(carriage_number)
-    puts @speed.zero?
+    raise "Номер вагона не может быть пустым!" if carriage_number.to_s.length <= 0
     @carriages << carriage_number if self.class == train_type && @speed.zero?
   end
 
@@ -62,12 +55,11 @@ class Train
   end 
 
   def add_current_station
-  #def current_station
 #сначала добавление объекта класса Train в массив trains класса Station
     route.stations_list[@current_station].add_train(self)
 #добавление объекта класса Route через метод-сеттер атрибута route класса Train   
     route.stations_list[@current_station]
-    p "train #{@train_id}"
+#    p "train #{@train_id}"
     end
 
   def station_next
@@ -98,15 +90,6 @@ class Train
   def set_train_type
     self.train_type = initial_train_type if @speed.zero? && @carriages.zero? && @current_station.zero?
   end
-
-
-#private
-#attr_writer :train_type
-#т.к. 0 только для поездов неопределенных классов
-#  def initial_train_type
-#    0
-#  end
-#
 
 protected
 
