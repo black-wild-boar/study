@@ -15,12 +15,12 @@ class Train
 
   def initialize(train_id)
     @train_id = train_id
+    validation!
     @train_type = self.class
     @carriages = []
     @speed = 0
     @current_station = {}
     @@trains_list[train_id] = self
-    validation!
   end
 
   def validation!

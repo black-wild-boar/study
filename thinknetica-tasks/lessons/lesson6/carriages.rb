@@ -9,8 +9,8 @@ class CarriageType
   
   def initialize(carriage_number)
     @carriage_number = carriage_number
-    @carriages_type = self.class#init_carriage
     validation!
+    @carriages_type = self.class#init_carriage
   end
 
   def validation!

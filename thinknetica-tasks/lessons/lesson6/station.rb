@@ -4,9 +4,9 @@ class Station
 
   def initialize(station)
     @station_name = station
+    validation!
     @trains = []
     @@stations_list << station
-    validation!
   end
 
   def validation!
