@@ -1,9 +1,7 @@
 require_relative 'modules/company.rb'
-# require_relative 'modules/validation.rb'
 
 class Train
   include Manufacturer
-  # include Validation
   attr_accessor :route
   attr_reader :train_id
   attr_accessor :train_type
