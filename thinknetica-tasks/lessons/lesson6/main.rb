@@ -67,16 +67,15 @@ attr_accessor :all_routes
 @@all_stations={}
 @@all_routes={}
 
-
 PASSENGER_TRAIN_TYPE = PassengerTrain#1
 CARGO_TRAIN_TYPE = CargoTrain#2
-TRAIN_NUMBER_FORMAT = /^.{3}[-]*.{2}$/
-NAME_MIN_LENGTH = 2
 
-def show_train_list
-  puts "Перечень поездов"
-  @@all_trains.keys.each do |train_item| 
-    puts "Поезд #{train_item} тип #{@@all_trains[train_item]}"
+def show_train_list(type)
+  puts "Перечень #{type} поездов"
+  @@all_trains.keys.each do |train_item|
+    if @@all_trains[train_item].to_s.include?(type.to_s)
+      puts "Поезд № #{train_item} тип #{type}"
+    end
   end
 end
 
@@ -121,14 +120,12 @@ def new_route
 end
 #3
 def new_passenger_train
-
   begin
   puts "Введите номер поезда"
   train = gets.chomp
   @@all_trains[train] = PassengerTrain.new(train)
   rescue
-    puts "Некорректный формат номера поезда!"
-    retry if train !~ TRAIN_NUMBER_FORMAT
+    retry
   end
   puts @@all_trains[train].class.to_s
   puts "Добавлен пассажирский поезд #{@@all_trains[train]}"
@@ -141,8 +138,7 @@ def new_cargo_train
   train = gets.chomp
   @@all_trains[train] = CargoTrain.new(train)
   rescue
-    puts "Некорректный формат номера поезда!"
-    retry if train !~ TRAIN_NUMBER_FORMAT
+    retry
   end
   puts "Добавлен грузовой поезд #{@@all_trains[train]}"
   puts @@all_trains
@@ -150,17 +146,14 @@ end
 #5
 def new_passenger_carriage
   begin
-  show_train_list
+  show_train_list(PASSENGER_TRAIN_TYPE)
   puts "Введите номер поезда"
   train_number = gets.chomp
   puts "Введите номер вагона"
   carriage_number = gets.chomp
-
-  raise puts "Некорректный формат номера поезда либо пустой номер вагона!" if train_number !~ TRAIN_NUMBER_FORMAT || carriage_number.to_s.length < NAME_MIN_LENGTH
   rescue
-    retry if train_number !~ TRAIN_NUMBER_FORMAT || carriage_number.to_s.length < NAME_MIN_LENGTH
+    retry
   end
-
   @@all_trains.values.each do |train|
     if train_number == train.train_id && train.train_type == PASSENGER_TRAIN_TYPE
       train.add_carriage_to_train(carriage_number) 
@@ -173,17 +166,14 @@ end
 #6
 def new_cargo_carriage
   begin
-  show_train_list
+  show_train_list(CARGO_TRAIN_TYPE)
   puts "Введите номер поезда"
   train_number = gets.chomp
   puts "Введите номер вагона"
   carriage_number = gets.chomp
-  
-  raise puts "Некорректный формат номера поезда либо пустой номер вагона!" if train_number !~ TRAIN_NUMBER_FORMAT || carriage_number.to_s.length < NAME_MIN_LENGTH
   rescue
-    retry if train_number !~ TRAIN_NUMBER_FORMAT || carriage_number.to_s.length < NAME_MIN_LENGTH
+    retry
   end
-
   @@all_trains.values.each do |train|
     if train_number == train.train_id.to_i && train.train_type == CARGO_TRAIN_TYPE
       train.add_carriage_to_train(carriage_number) 
@@ -196,11 +186,15 @@ def new_cargo_carriage
 end
 #7
 def del_passenger_carriage
+  begin
   show_train_list
   puts "Введите номер поезда"
   train_number = gets.chomp.to_i
   puts "Введите номер вагона"
   carriage_number = gets.chomp.to_i
+  rescue
+    retry
+  end
   @@all_trains.values.each do |train|
     if train_number == train.train_id.to_i && train.train_type == PASSENGER_TRAIN_TYPE && train.carriages.include?(carriage_number)
       train.carriages.delete(carriage_number)

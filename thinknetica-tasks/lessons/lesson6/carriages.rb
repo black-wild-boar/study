@@ -1,11 +1,11 @@
 require_relative 'modules/company.rb'
-# require_relative 'modules/validation.rb'
 
 class CarriageType
   include Manufacturer
-  # include Validation
   attr_accessor :carriage_number
   attr_accessor :carriages_type
+
+  CARRIAGE_NAME_MIN_LENGTH = 1
   
   def initialize(carriage_number)
     @carriage_number = carriage_number
@@ -14,7 +14,7 @@ class CarriageType
   end
 
   def validation!
-    raise "Номер вагона не может быть пустым!" if carriage_number.to_s.length <= 0
+    raise "Номер вагона не может быть пустым!" if carriage_number.to_s.length <= CARRIAGE_NAME_MIN_LENGTH
     true
   end
 

@@ -12,7 +12,7 @@ class Train
   attr_accessor :current_station
 
   TRAIN_NUMBER_FORMAT = /^.{3}[-]*.{2}$/
-
+  
   @@trains_list = {}
 
   def initialize(train_id)
@@ -26,8 +26,7 @@ class Train
   end
 
   def validation!
-    raise "0Некорректный формат номера поезда!" if train_id !~ TRAIN_NUMBER_FORMAT
-    raise "Скорость должна быть положительным числом!" if speed.class != Fixnum
+    raise puts "raise Некорректный формат номера поезда!" if train_id !~ TRAIN_NUMBER_FORMAT
     true
   end
 
