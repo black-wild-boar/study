@@ -1,0 +1,38 @@
+chunk
+braces(single-line blocks) {}
+do..end(multi-line blocks)
+vertical bars ||
+instead
+depending
+although
+frequent
+toward
+suppose
+flown
+define
+convenient
+rather
+peeking
+quiz
+sink
+folk
+often
+refer
+pipe
+goal
+fad
+regiment
+closures
+invocation
+adjacent
+parenthesis
+precendence
+implicit
+iterate
+spot
+thus
+observe
+scope
+prevents
+unintentionally
+clobber
