@@ -157,10 +157,8 @@ def new_passenger_carriage
   rescue
     retry
   end
-      puts @@all_trains
-
-      #puts @@all_trains[train_number]
-      puts @@all_trains.values_at(train_number).inspect
+  # puts @@all_trains
+  # puts @@all_trains.values_at(train_number).inspect
   @@all_trains.values.each do |train|
     if train_number == train.train_id && train.train_type == PASSENGER_TRAIN_TYPE
       # train.add_carriage_to_train(carriage_number) 
@@ -168,14 +166,17 @@ def new_passenger_carriage
       carriage_volume=nil
       puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
       puts CarriageType.new(carriage_number, seats_count, carriage_volume).class
-puts @@all_trains.values_at(train_number).inspect
-
-
-
+#puts @@all_trains.values_at(train_number).inspect
 
 #@@all_trains.values_at(train_number)[carriages[carriage_number]] = seats_count
-@@all_trains.values_at(train_number).add_carriage_to_train(CarriageType.new(carriage_number, seats_count, carriage_volume))
-      puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
+      puts train
+      puts train.carriages
+      train.carriages[carriage_number] = PassengerCarriage.new(carriage_number, seats_count, carriage_volume)
+      #puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
+      puts train
+      puts train.carriages
+  puts @@all_trains
+
     else puts "Такого поезда не существует"
     end     
   end
@@ -196,8 +197,23 @@ def new_cargo_carriage
   carriage_volume = gets.chomp.to_i
   @@all_trains.values.each do |train|
     if train_number == train.train_id.to_i && train.train_type == CARGO_TRAIN_TYPE
-      train.add_carriage_to_train(carriage_number) 
-      puts "Добавлен грузовой вагон #{carriage_number} к поезду #{train.train_id}."
+      # train.add_carriage_to_train(carriage_number) 
+      # puts "Добавлен грузовой вагон #{carriage_number} к поезду #{train.train_id}."
+
+      seats_count=nil
+      puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
+      puts CarriageType.new(carriage_number, seats_count, carriage_volume).class
+#puts @@all_trains.values_at(train_number).inspect
+
+#@@all_trains.values_at(train_number)[carriages[carriage_number]] = seats_count
+      puts train
+      puts train.carriages
+      train.carriages[carriage_number] = CargoCarriage.new(carriage_number, seats_count, carriage_volume)
+      #puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
+      puts train
+      puts train.carriages
+  puts @@all_trains
+
     else 
       puts "Такого поезда не существует"
     end     
