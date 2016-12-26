@@ -69,6 +69,7 @@ attr_accessor :all_routes
 
 PASSENGER_TRAIN_TYPE = PassengerTrain#1
 CARGO_TRAIN_TYPE = CargoTrain#2
+NAME_MIN_LENGTH = 2
 
 def show_train_list(type)
   puts "Перечень #{type} поездов"
@@ -151,13 +152,30 @@ def new_passenger_carriage
   train_number = gets.chomp
   puts "Введите номер вагона"
   carriage_number = gets.chomp
+  puts "Укажите количество мест"
+  seats_count = gets.chomp.to_i
   rescue
     retry
   end
+      puts @@all_trains
+
+      #puts @@all_trains[train_number]
+      puts @@all_trains.values_at(train_number).inspect
   @@all_trains.values.each do |train|
     if train_number == train.train_id && train.train_type == PASSENGER_TRAIN_TYPE
-      train.add_carriage_to_train(carriage_number) 
-      puts "Добавлен пассажирский вагон #{carriage_number} к поезду #{train.train_id}."
+      # train.add_carriage_to_train(carriage_number) 
+      # puts "Добавлен пассажирский вагон #{carriage_number} к поезду #{train.train_id}."
+      carriage_volume=nil
+      puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
+      puts CarriageType.new(carriage_number, seats_count, carriage_volume).class
+puts @@all_trains.values_at(train_number).inspect
+
+
+
+
+#@@all_trains.values_at(train_number)[carriages[carriage_number]] = seats_count
+@@all_trains.values_at(train_number).add_carriage_to_train(CarriageType.new(carriage_number, seats_count, carriage_volume))
+      puts CarriageType.new(carriage_number, seats_count, carriage_volume).inspect
     else puts "Такого поезда не существует"
     end     
   end
@@ -174,6 +192,8 @@ def new_cargo_carriage
   rescue
     retry
   end
+  puts "Укажите объем вагона"
+  carriage_volume = gets.chomp.to_i
   @@all_trains.values.each do |train|
     if train_number == train.train_id.to_i && train.train_type == CARGO_TRAIN_TYPE
       train.add_carriage_to_train(carriage_number) 

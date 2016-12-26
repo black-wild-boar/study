@@ -12,15 +12,24 @@ class Train
   TRAIN_NUMBER_FORMAT = /^.{3}[-]*.{2}$/
   
   @@trains_list = {}
+  
 
   def initialize(train_id)
     @train_id = train_id
     validation!
     @train_type = self.class
-    @carriages = []
+    @carriages ={}    
+#    @carriages = []
+    
     @speed = 0
     @current_station = {}
     @@trains_list[train_id] = self
+  end
+
+  def touch_all_carriage(&carriage_block)
+    @carriages.each do |carriage|
+      yield(carriage)
+    end
   end
 
   def validation!
@@ -43,8 +52,12 @@ class Train
   end
 
   def add_carriage_to_train(carriage_number)
+  #def add_carriage_to_train(carriage_number, seats_count, carriage_volume)
     raise "Номер вагона не может быть пустым!" if carriage_number.to_s.length <= 0
     @carriages << carriage_number if self.class == train_type && @speed.zero?
+    # if self.class == train_type && @speed.zero?
+    #   @carriages << CarriageType.new
+    # end
   end
 
   def speed_stop

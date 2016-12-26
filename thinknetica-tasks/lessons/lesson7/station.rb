@@ -9,9 +9,9 @@ class Station
     @@stations_list << station
   end
 
-  def train_to_block(train_id)
-    @@trains_list.keys.each do |train|
-      train_block = train
+  def train_to_block(&train_block)
+    @trains.each do |train|
+      yield(train)
     end
   end
 

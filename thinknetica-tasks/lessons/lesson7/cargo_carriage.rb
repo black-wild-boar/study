@@ -7,7 +7,7 @@ class CargoCarriage < CarriageType
     @busy_volume = 0
   end
 
-  def add.busy_volume(volume)
+  def add_busy_volume(volume)
     @busy_volume = volume
   end
 
