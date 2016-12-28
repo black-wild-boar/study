@@ -25,6 +25,7 @@ def main_menu
     puts "Удалить грузовой вагон. Нажмите 8."
     puts "Перевести поезд на станцию. Нажмите 9."
     puts "Показать поездов станций и поездов на станции. Нажмите 10."
+    puts "Показать поезда на станции. Нажмите 11."
     puts "Для завершения нажмите 0"
 
   key = gets.chomp.to_i
@@ -52,6 +53,8 @@ def main_menu
       train_to_station
     when key = 10
       show_stations_and_trains
+    when key = 11
+      show_all_trains_on_station
     else
       puts "Введен некорректный выбор"
     end
@@ -288,5 +291,20 @@ def show_stations_and_trains
     puts train if train.current_station = station_name
   end
 end
+
+#11
+def show_all_trains_on_station
+  puts "Список всех станций"
+  puts @@all_stations.keys
+  puts @@all_stations.keys.inspect
+
+  puts @@all_stations.values
+  puts @@all_stations.values.inspect
+
+  puts "Выберите станцию"
+  station = gets.chomp
+  #touch_all_trains { |station| puts "st #{station} at #{train}"}
+
+end 
 
 end #RailWay
