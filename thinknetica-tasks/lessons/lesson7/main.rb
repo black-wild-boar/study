@@ -307,4 +307,11 @@ def show_all_trains_on_station
 
 end 
 
+find_train = lambda { |index, value| puts "#{index}: #{value}"}
+
+def m(all_trains, &block)
+  find_train.call
+  yield
+end
+
 end #RailWay
