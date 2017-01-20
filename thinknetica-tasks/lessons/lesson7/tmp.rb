@@ -45,18 +45,18 @@ end
 
 
 
-def m2 (mas)#, &b)
+def m2 (mas, &b)
   puts "in method m2 #{mas}"
   #mas << 7
   #puts "after push 7 #{mas}"
   #mas.each {|x| puts "#{x}"}
   #block.call
-  mas.each {|g| g*10; puts "g = #{g}"}
+  mas.each {|g| puts "g = #{g*10}"}
   yield(mas) if block_given?
   mas.each do |t|
   yield(t) if block_given?
   end
-  #block.call
+  fff(mas)
   #b.call(mas)
   #b.call(mas[0])
   #mas.each {|d| puts d}#}
@@ -67,5 +67,4 @@ end
 
 #m2(4) {|f| puts "#{f} != 777"}
 m2([1,2,3]) {|f| puts "#{f} != 777"}
-
 
