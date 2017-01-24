@@ -11,9 +11,9 @@ class CargoCarriage < CarriageType
     @busy_volume = volume
   end
 
-  def show_busy_volume
-    @busy_volume
-  end
+  #def show_busy_volume
+  #  @busy_volume
+  #end
 
   def show_free_volume
     puts "В вагоне есть #{@carriage_volume-@busy_volume} объем"

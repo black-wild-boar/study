@@ -26,14 +26,14 @@ class Train
     @@trains_list[train_id] = self
   end
 
-  def touch_all_carriage(&carriage_block)
+  def carriage_to_block(&carriage_block)
     @carriages.each do |carriage|
       yield(carriage)
     end
   end
 
   def validation!
-    raise puts "raise Некорректный формат номера поезда!" if train_id !~ TRAIN_NUMBER_FORMAT
+    raise puts "raise Некорректный формат номера поезда! (3 символа, дефис, 2 символа)" if train_id !~ TRAIN_NUMBER_FORMAT
     true
   end
 
@@ -52,12 +52,9 @@ class Train
   end
 
   def add_carriage_to_train(carriage_number)
-  #def add_carriage_to_train(carriage_number, seats_count, carriage_volume)
     raise "Номер вагона не может быть пустым!" if carriage_number.to_s.length <= 0
-    @carriages << carriage_number if self.class == train_type && @speed.zero?
-    # if self.class == train_type && @speed.zero?
-    #   @carriages << CarriageType.new
-    # end
+    # @carriages << carriage_number if self.class == train_type && @speed.zero?
+    @carriages[carriage_number.carriage_number] = carriage_number if self.class == train_type && @speed.zero?
   end
 
   def speed_stop
@@ -97,6 +94,7 @@ class Train
   end
 
 #может менять тип если скорость = 0 вагонов нет и станция начальная
+#! можно добавить условие, что вагонов может вообще не быть @carriages.nil?
   def set_train_type
     self.train_type = initial_train_type if @speed.zero? && @carriages.zero? && @current_station.zero?
   end

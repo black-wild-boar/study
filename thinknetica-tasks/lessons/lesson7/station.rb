@@ -9,10 +9,9 @@ class Station
     @@stations_list << station
   end
 
-  def train_to_block(&train_block)
-    @trains.each do |train|
-      yield(train)
-    end
+  def train_to_block
+    @trains.each {|train| yield(train)}
+# вызов в irb например так object.method { |t1| puts t1 }
   end
 
   def validation!
